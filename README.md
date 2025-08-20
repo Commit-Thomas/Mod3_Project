@@ -1,19 +1,46 @@
 # Mod3_Project
-# Project Title & Owner (h1 or Title)
-# Business Problem (3-6 sentences)
-# Stakeholders (listed in scenario)
-# Overview of Database & Schema
-# Very brief star schema explanation (your own words, after research)
-# List of tables and overview of information found in each table (do not have
-to list every column)
-# EDA (SQL) — 3 MAIN things that you explored and why (no giant query dumps –
-but can embed code snippets; link to /sql/01_eda.sql)
-# Feature Engineering (SQL) — features you created + short rationale
-# CTEs & Window Functions (SQL) — include short code snippets of your key
-CTE/window queries and link to the SQL Query file
-# Visuals (Python) — embed your 3 saved images with 1–2 line captions each
-# Insights & Recommendations — concrete actions for GM, Ops, AND
-Marketing
-# Ethics & Bias — data quality, missing values, duplicates, margin not modeled,
-time window, etc.
-# Repo Navigation — /sql, /notebooks, /figures, /data
+# Supernova Theme Park Analysis | by [Your Name]
+
+## 📌 Business Problem
+[Short summary]
+
+## 👥 Stakeholders
+[List]
+
+## 🗃️ Overview of Database & Schema
+- [Short schema explanation]
+- [List of tables and their purpose]
+
+## 🔍 EDA (SQL)
+- [3 main findings from 01_eda.sql]
+
+## 🛠️ Feature Engineering (SQL)
+- [List of 4 features and why they matter]
+
+## 📊 CTEs & Window Functions (SQL)
+- [Summarize daily trends, CLV, behavior, ticket switching]
+
+## 📈 Visuals (Python)
+- ![daily_attendance](figures/daily_attendance.png)
+  *Line chart showing park peak traffic days.*
+- ![wait_satisfaction](figures/wait_vs_satisfaction.png)
+  *Bar chart of wait vs. satisfaction by ride category.*
+- ![clv_distribution](figures/clv_distribution.png)
+  *Boxplot of CLV by ticket type.*
+
+## 💡 Insights & Recommendations
+- GM: Focus high-CLV guests with loyalty offers
+- Ops: Add staff on peak weekends, manage high-wait rides
+- Marketing: Optimize promos that boost spend, not just attendance
+
+## ⚖️ Ethics & Bias
+- Data quality issues: spend formatting, some nulls
+- Margin not modeled (revenue only)
+- Time window limited (8 days)
+- Photo_purchase may be underreported
+
+## 🗺️ Repo Navigation
+- `/sql`: all SQL scripts
+- `/notebooks`: Python analysis
+- `/figures`: plots for README
+- `/data`: raw DB
