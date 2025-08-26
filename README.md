@@ -52,7 +52,7 @@ The schema follows a **star design** with the following tables:
 - `fact_ride_events`: ride usage, wait times, satisfaction
 - `fact_purchases`: food, merchandise, photo purchases
 
-This design supports flexible analysis and performant joins. edit
+This design supports flexible analysis and performant joins.
 
 ---
 
