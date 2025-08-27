@@ -75,15 +75,15 @@ Used LAG() to compare visit-to-visit spend:
 
 
 ---
-##💡 Insights & Recommendations
+## 💡 Insights & Recommendations
 
-🎯 For the General Manager:
+- 🎯 For the General Manager:
 Increase staffing on Mondays, which are busiest for both visits and party sizes.
 Extend hours or offer incentives to increase average stay duration and spend.
-⚙️ For Operations:
+- ⚙️ For Operations:
 Monitor long wait times (>60 min) — they lower satisfaction.
 Add fast pass or digital queueing for high-demand rides.
-📈 For Marketing:
+- 📈 For Marketing:
 Geo-targeted loyalty campaigns for top spenders by state.
 Promote flexible ticket bundles, especially to guests switching tiers.
 Track guests who increased spend — target for upsells or memberships.
