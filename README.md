@@ -71,7 +71,7 @@ Used LAG() to compare visit-to-visit spend:
 55.6% decreased
 3.7% spent the same
 ```
-##📊 Visuals (Python)
+## 📊 Visuals (Python)
 
 
 ---
