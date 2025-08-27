@@ -73,6 +73,19 @@ Used LAG() to compare visit-to-visit spend:
 ```
 ## 📊 Visuals (Python)
 
+### 1. Spending by Day of the Week
+![Daily Spend by Ticket Type](figures/daily_spend_by_ticket_type.png)
+Guests spend most on Sundays and Mondays, suggesting higher demand during those days.
+
+### 2. Top Guests by State
+![Top Guests](figures/top_guests_by_state.png)
+High-value guests are concentrated in California and Florida, making them ideal for targeted marketing.
+
+### 3. Ticket Type Switching
+![Ticket Type Switching](figures/ticket_type_switching.png)
+Most guests switched ticket types at least once, often to VIP or Family Pack options, suggesting opportunity for upselling.
+
+
 
 ---
 ## 💡 Insights & Recommendations
