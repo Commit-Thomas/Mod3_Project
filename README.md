@@ -1,69 +1,43 @@
-# Beyond the Park: Exploring Guest Behavior and Driving Revenue Growth
-
-## Table of Contents
-- [Business Problem](#business-problem)
-- [Stakeholders](#stakeholders)
-- [Overview of Database & Schema](#overview-of-database--schema)
-- [EDA (SQL)](#eda-sql)
-- [Feature Engineering (SQL)](#feature-engineering-sql)
-- [CTEs & Window Functions (SQL)](#ctes--window-functions-sql)
-- [Visuals (Python)](#visuals-python)
-- [Insights & Recommendations](#insights--recommendations)
-- [Ethics & Bias Considerations](#ethics--bias-considerations)
-- [Repo Navigation](#repo-navigation)
+# 🎢 Mod3 Project: Theme Park Guest Analytics  
+**Owner**: *Your Name Here*
 
 ---
 
-## Business Problem
+## 🧠 Business Problem
 
-The theme park is facing inconsistencies in revenue and guest satisfaction. Management wants to understand:
-- Which guests are most valuable?
-- What factors affect satisfaction (e.g., wait times, ride experiences)?
-- Are certain ticket types or days associated with higher spending?
-- Can we reduce crowding while increasing spending?
-
-Our goal is to uncover key patterns using SQL and Python to recommend actions that improve profitability **and** guest experience.
+The Supernova Theme Park wants to better understand guest behavior to improve satisfaction and maximize revenue. Management suspects long wait times, unclear ticket value, and inconsistent spending patterns are impacting both the guest experience and profit. Data-driven insights are needed to guide staffing, ticketing, and marketing strategies.
 
 ---
 
-## Stakeholders
+## 👥 Stakeholders
 
-**Primary Stakeholder:**
-- **General Manager**: Focused on total revenue, average guest value, and long-term satisfaction.
-
-**Supporting Stakeholders:**
-- **Marketing Director**: Wants to segment guests by value and behavior for smarter promotions.
-- **Operations Lead**: Needs to understand traffic patterns and satisfaction drivers to allocate resources better.
+- **General Manager** — needs staffing and scheduling insights to improve efficiency  
+- **Operations Director** — focused on managing ride wait times and satisfaction  
+- **Marketing Director** — interested in pricing, ticket switching behavior, and top spenders  
 
 ---
 
-## Overview of Database & Schema
+## 🗂️ Overview of Database & Schema
 
-The schema follows a **star design** with the following tables:
+The database follows a **star schema** for optimized querying and scalability. Central fact tables log events (visits, rides, purchases), while dimension tables provide guest, ticket, attraction, and calendar context.
 
-### Dimension Tables:
-- `dim_guest`: guest demographics, state, opt-in status
-- `dim_ticket`: ticket type info
-- `dim_attraction`: ride details
-- `dim_date`: calendar info (day name, weekend, season)
+**Key Tables:**
 
-### Fact Tables:
-- `fact_visits`: park entry/exit data, spend, ticket
-- `fact_ride_events`: ride usage, wait times, satisfaction
-- `fact_purchases`: food, merchandise, photo purchases
-
-This design supports flexible analysis and performant joins.
+- `dim_guest`, `dim_ticket`, `dim_attraction`, `dim_date`  
+- `fact_visits`, `fact_ride_events`, `fact_purchases`
 
 ---
 
-## EDA (SQL)
+## 🔍 EDA (SQL)  
+➡️ [`sql/01_eda.sql`](sql/01_eda.sql)
 
-### Q1: Visit Volume by Ticket Type
+- **Visit Trends**: Monday had the highest number of visits; Sunday had the highest spend.  
+- **Wait Times & Satisfaction**: Longer waits generally correlated with lower satisfaction.  
+- **Data Quality**: Found and removed ~10 duplicate ride events; some nulls in satisfaction data.
+
+> *Snippet: Checking duplicate ride logs*
 ```sql
-SELECT 
-    dt.ticket_type_name, 
-    COUNT(fv.visit_id) AS num_visits
-FROM fact_visits fv
-LEFT JOIN dim_ticket dt ON fv.ticket_type_id = dt.ticket_type_id
-GROUP BY dt.ticket_type_name
-ORDER BY num_visits DESC;
+SELECT attraction_id, ride_time, wait_minutes, satisfaction_rating, COUNT(*) 
+FROM fact_ride_events
+GROUP BY 1, 2, 3, 4
+HAVING COUNT(*) > 1;
