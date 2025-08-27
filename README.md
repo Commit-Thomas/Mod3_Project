@@ -99,8 +99,10 @@ Profit Not Modeled: Only revenue data available; costs and margins not included.
 ---
 
 ## 📁 Repo Navigation
+```
 /sql        → SQL scripts: EDA, Features, CTEs & Windows  
 /notebooks  → Python notebooks for data viz  
 /figures    → Saved chart images for embedding  
 /data       → Source SQLite database  
 README.md   → This file
+```
