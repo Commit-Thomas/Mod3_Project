@@ -41,3 +41,57 @@ SELECT attraction_id, ride_time, wait_minutes, satisfaction_rating, COUNT(*)
 FROM fact_ride_events
 GROUP BY 1, 2, 3, 4
 HAVING COUNT(*) > 1;
+
+| Feature            | Description                           | Purpose                            |
+| ------------------ | ------------------------------------- | ---------------------------------- |
+| `stay_hours`       | Visit duration in hours               | Helps Ops monitor guest engagement |
+| `wait_bucket`      | Wait time category (0-30, 30-60, 60+) | Useful for satisfaction analysis   |
+| `spend_dollars`    | Cleaned spend in dollars              | Enables monetary comparisons       |
+| `spend_per_person` | Spend ÷ party size                    | Helps identify high-value parties  |
+
+
+## 🪜 CTEs & Window Functions (SQL)
+➡️ sql/04_ctes_windows.sql
+Guest Lifetime Value by State
+Ranked top spenders per home state using window function:
+RANK() OVER (
+  PARTITION BY home_state
+  ORDER BY total_spent DESC
+) AS rank_in_state
+
+## Spend Behavior Changes Over Time
+Used LAG() to compare visit-to-visit spend:
+LAG(fv.spend_dollars) OVER (
+  PARTITION BY guest_id
+  ORDER BY dd.day_name
+) AS previous_spend
+40.7% of guests increased spend on their next visit
+55.6% decreased
+3.7% spent the same
+
+##📊 Visuals (Python)
+
+
+
+##💡 Insights & Recommendations
+🎯 For the General Manager:
+Increase staffing on Mondays, which are busiest for both visits and party sizes.
+Extend hours or offer incentives to increase average stay duration and spend.
+⚙️ For Operations:
+Monitor long wait times (>60 min) — they lower satisfaction.
+Add fast pass or digital queueing for high-demand rides.
+📈 For Marketing:
+Geo-targeted loyalty campaigns for top spenders by state.
+Promote flexible ticket bundles, especially to guests switching tiers.
+Track guests who increased spend — target for upsells or memberships.
+⚖️ Ethics & Bias
+Missing Data: Some satisfaction and wait times are null — especially low-volume days.
+Data Cleaning: Removed ~10 exact duplicates in ride events; spend converted from cents to dollars.
+Time Range: Only 8 days of data — trends are short-term and should be re-validated over time.
+Profit Not Modeled: Only revenue data available; costs and margins not included.
+📁 Repo Navigation
+/sql        → SQL scripts: EDA, Features, CTEs & Windows  
+/notebooks  → Python notebooks for data viz  
+/figures    → Saved chart images for embedding  
+/data       → Source SQLite database  
+README.md   → This file
