@@ -1,5 +1,5 @@
 # 🎢 Mod3 Project: Theme Park Guest Analytics  
-**Owner**: *Your Name Here*
+**By**: *Thomas Segal*
 
 ---
 
@@ -49,7 +49,6 @@ HAVING COUNT(*) > 1;
 | `stay_hours`       | Visit duration in hours               | Helps Ops monitor guest engagement |
 | `wait_bucket`      | Wait time category (0-30, 30-60, 60+) | Useful for satisfaction analysis   |
 | `spend_dollars`    | Cleaned spend in dollars              | Enables monetary comparisons       |
-| `spend_per_person` | Spend ÷ party size                    | Helps identify high-value parties  |
 
 
 ## 🪜 CTEs & Window Functions (SQL)
