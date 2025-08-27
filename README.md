@@ -73,7 +73,8 @@ Used LAG() to compare visit-to-visit spend:
 ```
 ## 📊 Visuals (Python)
 
-### 1. Spending by Day of the Week
+### 1. Spending by Day of the Week<img width="1165" height="678" alt="25c4716e-e1d7-4a82-9f19-a9a30c7454bd" src="https://github.com/user-attachments/assets/4bbcb829-4f4f-44bb-817b-60bd6e8c0138" />
+
 ![Daily Spend by Ticket Type](daily_spend_by_ticket_type.png)
 Guests spend most on Sundays and Mondays, suggesting higher demand during those days.
 
