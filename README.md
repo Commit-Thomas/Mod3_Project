@@ -41,6 +41,8 @@ SELECT attraction_id, ride_time, wait_minutes, satisfaction_rating, COUNT(*)
 FROM fact_ride_events
 GROUP BY 1, 2, 3, 4
 HAVING COUNT(*) > 1;
+``` 
+
 
 | Feature            | Description                           | Purpose                            |
 | ------------------ | ------------------------------------- | ---------------------------------- |
@@ -61,14 +63,14 @@ RANK() OVER (
 
 ## Spend Behavior Changes Over Time
 Used LAG() to compare visit-to-visit spend:
-LAG(fv.spend_dollars) OVER (
+```LAG(fv.spend_dollars) OVER (
   PARTITION BY guest_id
   ORDER BY dd.day_name
 ) AS previous_spend
 40.7% of guests increased spend on their next visit
 55.6% decreased
 3.7% spent the same
-
+```
 ##📊 Visuals (Python)
 
 
