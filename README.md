@@ -56,11 +56,11 @@ HAVING COUNT(*) > 1;
 ➡️ sql/04_ctes_windows.sql
 Guest Lifetime Value by State
 Ranked top spenders per home state using window function:
-RANK() OVER (
+```RANK() OVER (
   PARTITION BY home_state
   ORDER BY total_spent DESC
 ) AS rank_in_state
-
+```
 ## Spend Behavior Changes Over Time
 Used LAG() to compare visit-to-visit spend:
 ```LAG(fv.spend_dollars) OVER (
@@ -74,8 +74,9 @@ Used LAG() to compare visit-to-visit spend:
 ##📊 Visuals (Python)
 
 
-
+---
 ##💡 Insights & Recommendations
+
 🎯 For the General Manager:
 Increase staffing on Mondays, which are busiest for both visits and party sizes.
 Extend hours or offer incentives to increase average stay duration and spend.
@@ -86,12 +87,18 @@ Add fast pass or digital queueing for high-demand rides.
 Geo-targeted loyalty campaigns for top spenders by state.
 Promote flexible ticket bundles, especially to guests switching tiers.
 Track guests who increased spend — target for upsells or memberships.
-⚖️ Ethics & Bias
+
+---
+
+## ⚖️ Ethics & Bias
 Missing Data: Some satisfaction and wait times are null — especially low-volume days.
 Data Cleaning: Removed ~10 exact duplicates in ride events; spend converted from cents to dollars.
 Time Range: Only 8 days of data — trends are short-term and should be re-validated over time.
 Profit Not Modeled: Only revenue data available; costs and margins not included.
-📁 Repo Navigation
+
+---
+
+## 📁 Repo Navigation
 /sql        → SQL scripts: EDA, Features, CTEs & Windows  
 /notebooks  → Python notebooks for data viz  
 /figures    → Saved chart images for embedding  
