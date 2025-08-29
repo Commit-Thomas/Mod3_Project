@@ -66,10 +66,12 @@ Used LAG() to compare visit-to-visit spend:
   PARTITION BY guest_id
   ORDER BY dd.day_name
 ) AS previous_spend
+```
+
 40.7% of guests increased spend on their next visit
 55.6% decreased
 3.7% spent the same
-```
+
 ## 📊 Visuals (Python)
 
 ### 1. Spending by Day of the Week<img width="1165" height="678" alt="25c4716e-e1d7-4a82-9f19-a9a30c7454bd" src="https://github.com/user-attachments/assets/4bbcb829-4f4f-44bb-817b-60bd6e8c0138" />
@@ -105,10 +107,10 @@ Track guests who increased spend — target for upsells or memberships.
 ---
 
 ## ⚖️ Ethics & Bias
-Missing Data: Some satisfaction and wait times are null — especially low-volume days.
-Data Cleaning: Removed ~10 exact duplicates in ride events; spend converted from cents to dollars.
-Time Range: Only 8 days of data — trends are short-term and should be re-validated over time.
-Profit Not Modeled: Only revenue data available; costs and margins not included.
+Small Dataset: Only 10 guest_ids
+Missing Data: Some satisfaction and wait times are null.
+Time Range: Only 8 days of data trends are short-term and should be re-validated over time.
+Only revenue data available; costs and margins not included.
 
 ---
 
