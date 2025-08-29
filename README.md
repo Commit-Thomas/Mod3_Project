@@ -74,16 +74,17 @@ Used LAG() to compare visit-to-visit spend:
 
 ## 📊 Visuals (Python)
 
-### 1. Spending by Day of the Week<img width="1165" height="678" alt="25c4716e-e1d7-4a82-9f19-a9a30c7454bd" src="https://github.com/user-attachments/assets/4bbcb829-4f4f-44bb-817b-60bd6e8c0138" />
+### 1. Daily Spend by Ticket Type
+<img width="1165" height="678" alt="25c4716e-e1d7-4a82-9f19-a9a30c7454bd" src="https://github.com/user-attachments/assets/4bbcb829-4f4f-44bb-817b-60bd6e8c0138" />
 
 Guests spend most on Sundays and Mondays, suggesting higher demand during those days.
 
-### 2. Top Guests by State
+### 2. Average Wait Time by Day of Week
 <img width="687" height="468" alt="57e35b14-2342-4d7e-94cd-521d555cceba" src="https://github.com/user-attachments/assets/42b6035a-4f30-4225-a5bc-68ab244cf0f0" />
 
 High-value guests are concentrated in California and Florida, making them ideal for targeted marketing.
 
-### 3. Ticket Type Switching
+### 3. CLV Distribution by Home State
 <img width="1005" height="555" alt="2203df19-5338-459c-874a-d260c204f6bd" src="https://github.com/user-attachments/assets/e87ce0f0-41c8-4ec8-99ac-ae4a4024700f" />
 
 Most guests switched ticket types at least once, often to VIP or Family Pack options, suggesting opportunity for upselling.
@@ -107,10 +108,10 @@ Track guests who increased spend — target for upsells or memberships.
 ---
 
 ## ⚖️ Ethics & Bias
-Small Dataset: Only 10 guest_ids
-Missing Data: Some satisfaction and wait times are null.
-Time Range: Only 8 days of data trends are short-term and should be re-validated over time.
-Only revenue data available; costs and margins not included.
+- Small Dataset: Only 10 guest_ids
+- Missing Data: Some satisfaction and wait times are null.
+- Time Range: Only 8 days of data trends are short-term and should be re-validated over time.
+- Only revenue data available; costs and margins not included.
 
 ---
 
