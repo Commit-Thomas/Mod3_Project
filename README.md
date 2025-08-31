@@ -29,7 +29,7 @@ The database follows a **star schema** for optimized querying and scalability. C
 ---
 
 ## 🔍 EDA (SQL)  
-➡️ [`sql/01_eda.sql`][([sql/01_eda.sql])](https://github.com/Commit-Thomas/Mod3_Project/blob/main/sql/01_EDA.sql)
+➡️ [sql/01_eda.sql](https://github.com/Commit-Thomas/Mod3_Project/blob/main/sql/01_EDA.sql)
 
 - **Visit Trends**: Monday had the highest average number of visits and party size.  
 - **Wait Times & Satisfaction**: Surprisingly longer waits didn't have a strong correlation with lower satisfaction.  
