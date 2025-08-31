@@ -133,9 +133,9 @@ Track guests who increased spend — target for upsells or memberships.
 
 ## 📁 Repo Navigation
 ```
-/sql        → SQL scripts: EDA, Features, CTEs & Windows  
-/notebooks  → Python notebooks for data viz  
-/figures    → Saved chart images for embedding  
-/data       → Source SQLite database  
+/data       → Source SQLite database
+/notebooks  → Python notebooks for data viz   
+/figures    → Saved chart images for embedding   
+/sql        → SQL scripts: EDA, Features, CTEs & Windows
 README.md   → This file
 ```
