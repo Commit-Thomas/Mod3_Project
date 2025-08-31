@@ -66,8 +66,7 @@ HAVING COUNT(*) > 1;
 
 
 ## 🪜 CTEs & Window Functions (SQL)
-➡️ sql/04_ctes_windows.sql https://github.com/Commit-Thomas/Mod3_Project/blob/main/sql/04_CTEs_Windows.sql
-[`sql/04_ctes_windows.sql`] https://github.com/Commit-Thomas/Mod3_Project/blob/main/sql/04_CTEs_Windows.sql
+➡️ [`sql/04_ctes_windows.sql`] (https://github.com/Commit-Thomas/Mod3_Project/blob/main/sql/04_CTEs_Windows.sql)
 
 Guest Lifetime Value by State
 Ranked top spenders per home state using window function:
