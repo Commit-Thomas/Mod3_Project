@@ -1,4 +1,4 @@
-# 🎢 Mod3 Project: Theme Park Guest Analytics  
+# 🎢 Mod3 Project: Theme Park Analysis  
 **By**: *Thomas Segal*
 
 ---
@@ -31,15 +31,29 @@ The database follows a **star schema** for optimized querying and scalability. C
 ## 🔍 EDA (SQL)  
 ➡️ [`sql/01_eda.sql`](sql/01_eda.sql)
 
-- **Visit Trends**: Monday had the highest number of visits; Sunday had the highest spend.  
-- **Wait Times & Satisfaction**: Longer waits generally correlated with lower satisfaction.  
-- **Data Quality**: Found and removed ~10 duplicate ride events; some nulls in satisfaction data.
+- **Visit Trends**: Monday had the highest average number of visits and party size.  
+- **Wait Times & Satisfaction**: Surprisingly longer waits didn't have a strong correlation with lower satisfaction.  
+- **Data Quality**: Found 8 duplicate ride events.
+- **Ticket Switching**: All customers switched at least once.
 
 > *Snippet: Checking duplicate ride logs*
 ```sql
-SELECT attraction_id, ride_time, wait_minutes, satisfaction_rating, COUNT(*) 
+SELECT
+    attraction_id,
+    visit_id,
+    ride_time,
+    wait_minutes,
+    satisfaction_rating,
+    photo_purchase,
+    COUNT(*) AS dup_count
 FROM fact_ride_events
-GROUP BY 1, 2, 3, 4
+GROUP BY
+    attraction_id,
+    visit_id,
+    ride_time,
+    wait_minutes,
+    satisfaction_rating,
+    photo_purchase
 HAVING COUNT(*) > 1;
 ``` 
 
@@ -77,19 +91,20 @@ Used LAG() to compare visit-to-visit spend:
 ### 1. Daily Spend by Ticket Type
 <img width="1165" height="678" alt="25c4716e-e1d7-4a82-9f19-a9a30c7454bd" src="https://github.com/user-attachments/assets/4bbcb829-4f4f-44bb-817b-60bd6e8c0138" />
 
-Guests spend most on Sundays and Mondays, suggesting higher demand during those days.
+- Day passes are the most consistent, with revenue staying within $300–$500.
+- VIP tickets have a wider range of daily spend.
 
 ### 2. Average Wait Time by Day of Week
 <img width="687" height="468" alt="57e35b14-2342-4d7e-94cd-521d555cceba" src="https://github.com/user-attachments/assets/42b6035a-4f30-4225-a5bc-68ab244cf0f0" />
 
-High-value guests are concentrated in California and Florida, making them ideal for targeted marketing.
+- Thursday has the highest average wait time, with nearly 60 minutes.
+- Other days with above-average wait times show low variance, all around 48–50 minutes.
 
 ### 3. CLV Distribution by Home State
 <img width="1005" height="555" alt="2203df19-5338-459c-874a-d260c204f6bd" src="https://github.com/user-attachments/assets/e87ce0f0-41c8-4ec8-99ac-ae4a4024700f" />
 
-Most guests switched ticket types at least once, often to VIP or Family Pack options, suggesting opportunity for upselling.
-
-
+- Customers from California have the highest average CLV, at roughly $800, but with high variance.
+- Texas has the lowest CLV, at $300.
 
 ---
 ## 💡 Insights & Recommendations
@@ -98,18 +113,19 @@ Most guests switched ticket types at least once, often to VIP or Family Pack opt
 Increase staffing on Mondays, which are busiest for both visits and party sizes.
 Extend hours or offer incentives to increase average stay duration and spend.
 - ⚙️ For Operations:
-Monitor long wait times (>60 min) — they lower satisfaction.
+Monitor days with longer wait times — rides may be breaking down.
 Add fast pass or digital queueing for high-demand rides.
 - 📈 For Marketing:
 Geo-targeted loyalty campaigns for top spenders by state.
-Promote flexible ticket bundles, especially to guests switching tiers.
+More clear communication on what each ticket offers, customers seem to have confusion.
 Track guests who increased spend — target for upsells or memberships.
 
 ---
 
 ## ⚖️ Ethics & Bias
 - Small Dataset: Only 10 guest_ids
-- Missing Data: Some satisfaction and wait times are null.
+- Missing Data: 10 total_spend_cents and 72 wait times are null.
+- Imputation: cents/dollars imputed with $0.
 - Time Range: Only 8 days of data trends are short-term and should be re-validated over time.
 - Only revenue data available; costs and margins not included.
 
