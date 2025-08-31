@@ -67,6 +67,7 @@ HAVING COUNT(*) > 1;
 
 ## 🪜 CTEs & Window Functions (SQL)
 ➡️ sql/04_ctes_windows.sql
+
 Guest Lifetime Value by State
 Ranked top spenders per home state using window function:
 ```RANK() OVER (
@@ -134,8 +135,8 @@ Track guests who increased spend — target for upsells or memberships.
 ## 📁 Repo Navigation
 ```
 /data       → Source SQLite database
+/figures    → Saved chart images for embedding  
 /notebooks  → Python notebooks for data viz   
-/figures    → Saved chart images for embedding   
 /sql        → SQL scripts: EDA, Features, CTEs & Windows
 README.md   → This file
 ```
