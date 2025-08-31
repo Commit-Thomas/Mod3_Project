@@ -70,17 +70,21 @@ HAVING COUNT(*) > 1;
 
 Guest Lifetime Value by State
 Ranked top spenders per home state using window function:
-```RANK() OVER (
+```
+RANK() OVER (
   PARTITION BY home_state
   ORDER BY total_spent DESC
 ) AS rank_in_state
+
 ```
 ## Spend Behavior Changes Over Time
 Used LAG() to compare visit-to-visit spend:
-```LAG(fv.spend_dollars) OVER (
+```
+LAG(fv.spend_dollars) OVER (
   PARTITION BY guest_id
   ORDER BY dd.day_name
 ) AS previous_spend
+
 ```
 
 40.7% of guests increased spend on their next visit
