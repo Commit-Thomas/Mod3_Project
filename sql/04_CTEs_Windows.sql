@@ -141,3 +141,116 @@ SELECT
   switched
 FROM ticket_switch_flag
 WHERE switched = 1;
+
+-- Capstone CTE/Windows
+
+-- Ranking best-selling items and converting cents to dollars for readability 
+SELECT 
+    item_name,
+    COUNT(*) AS total_units,
+    SUM(amount_cents_clean) / 100.0 AS total_revenue_dollars,
+    RANK() OVER (ORDER BY SUM(amount_cents_clean) DESC) AS revenue_rank
+FROM fact_purchases
+WHERE amount_cents_clean IS NOT NULL
+GROUP BY item_name
+ORDER BY revenue_rank;
+
+-- Frequency of ridership for each ride
+
+WITH daily_ride_counts AS (
+    SELECT
+        dd.date_iso,
+        da.attraction_name,
+        da.category,
+        COUNT(fre.ride_event_id) AS rides_that_day
+    FROM fact_ride_events fre
+    JOIN dim_attraction da
+        ON fre.attraction_id = da.attraction_id
+    JOIN fact_visits fv
+        ON fre.visit_id = fv.visit_id
+    JOIN dim_date dd
+        ON fv.date_id = dd.date_id
+    GROUP BY dd.date_iso, da.attraction_name, da.category
+)
+
+SELECT
+    attraction_name,
+    category,
+    ROUND(AVG(rides_that_day), 2) AS avg_rides_per_day
+FROM daily_ride_counts
+GROUP BY attraction_name, category
+ORDER BY avg_rides_per_day DESC;
+
+-- Finding the percent of non-ticket spending for each ticket type to find which groups spend more
+
+WITH purchase_spend AS (
+    SELECT 
+        visit_id,
+        SUM(amount_cents_clean) AS purchase_cents
+    FROM fact_purchases
+    WHERE amount_cents_clean IS NOT NULL
+    GROUP BY visit_id
+),
+
+visit_spend AS (
+    SELECT 
+        visit_id,
+        ticket_type_id,
+        spend_cents_clean AS total_cents
+    FROM fact_visits
+    WHERE spend_cents_clean IS NOT NULL
+),
+
+combined AS (
+    SELECT 
+        v.ticket_type_id,
+        v.total_cents,
+        COALESCE(p.purchase_cents, 0) AS purchase_cents
+    FROM visit_spend v
+    LEFT JOIN purchase_spend p
+        ON v.visit_id = p.visit_id
+)
+
+SELECT 
+    t.ticket_type_name,
+    ROUND(100.0 * SUM(purchase_cents) / SUM(total_cents), 2) AS non_ticket_spend_pct
+FROM combined c
+JOIN dim_ticket t
+    ON c.ticket_type_id = t.ticket_type_id
+GROUP BY t.ticket_type_name
+ORDER BY non_ticket_spend_pct DESC;
+
+-- KPIs to track average revenue, wait time, and rides per visit
+WITH visit_metrics AS (
+    SELECT
+        ROUND(AVG(spend_dollars), 2) AS avg_spend_per_visit,
+        ROUND(AVG(stay_hours), 2) AS avg_stay_hours
+    FROM fact_visits
+),
+
+wait_metrics AS (
+    SELECT
+        ROUND(AVG(wait_minutes), 2) AS avg_wait_time
+    FROM fact_ride_events
+    WHERE wait_minutes IS NOT NULL
+),
+
+ride_metrics AS (
+    SELECT
+        ROUND(
+            CAST(COUNT(fre.ride_event_id) AS REAL) /
+            COUNT(DISTINCT fv.visit_id),
+            2
+        ) AS avg_rides_per_visit
+    FROM fact_visits fv
+    LEFT JOIN fact_ride_events fre
+        ON fv.visit_id = fre.visit_id
+)
+
+SELECT
+    vm.avg_spend_per_visit,
+    wm.avg_wait_time,
+    rm.avg_rides_per_visit
+FROM visit_metrics vm
+CROSS JOIN wait_metrics wm
+CROSS JOIN ride_metrics rm;
