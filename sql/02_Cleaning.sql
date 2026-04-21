@@ -172,3 +172,48 @@ SELECT
 FROM fact_visits v
 INNER JOIN fact_purchases p ON p.visit_id = v.visit_id
 GROUP BY v.guest_id;
+
+-- Capstone Cleaning 
+
+-- Improving imputation methods by converting all zeros back to null
+UPDATE fact_visits
+SET spend_dollars = NULL
+WHERE spend_dollars = 0;
+
+-- -- Validates spend consistency by comparing guest-level totals between fact_visits and fact_purchases, calculating discrepancies, and flagging mismatches for data quality review.
+WITH spend_validation AS (
+    SELECT 
+        v.guest_id,
+
+        SUM(v.spend_cents_clean) AS visit_spend_total,
+        SUM(p.amount_cents_clean) AS purchase_spend_total
+
+    FROM fact_visits v
+    INNER JOIN fact_purchases p 
+        ON p.visit_id = v.visit_id
+
+    GROUP BY v.guest_id
+)
+
+SELECT
+    guest_id,
+
+    visit_spend_total,
+    purchase_spend_total,
+
+    (visit_spend_total - purchase_spend_total) AS spend_difference,
+
+    ROUND(
+        100.0 * 
+        ABS(visit_spend_total - purchase_spend_total)
+        / NULLIF(purchase_spend_total,0),
+        2
+    ) AS percent_difference,
+
+    CASE
+        WHEN visit_spend_total = purchase_spend_total THEN 'MATCH'
+        ELSE 'MISMATCH'
+    END AS validation_flag
+
+FROM spend_validation
+ORDER BY percent_difference DESC;
