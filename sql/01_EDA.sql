@@ -169,5 +169,57 @@ ORDER BY
         WHEN 'Sunday' THEN 7
     END;
 
+-- Capstone EDA
 
+-- Checking average wait-time for each day along with the number of guests. 
+SELECT visit_date
+, SUM(party_size) AS total_guest
+, ROUND(AVG(wait_minutes),2) AS AVG_wait_time
+FROM fact_ride_events fr
+JOIN fact_visits fv ON fr.visit_id = fv.visit_id
+GROUP BY visit_date
+ORDER BY AVG_wait_time DESC;
+
+-- Frequency of rides for average guest
+WITH rides_per_visit AS (
+    SELECT
+        visit_id,
+        COUNT(*) AS ride_count
+    FROM fact_ride_events
+    GROUP BY visit_id
+)
+
+SELECT
+    ROUND(AVG(ride_count), 2) AS avg_rides_per_visit
+FROM rides_per_visit;
+
+-- Frequency of all rides by day of the week
+
+SELECT
+    d.day_name,
+    ROUND(AVG(ride_count),2) AS avg_rides
+FROM (
+    SELECT
+        fv.visit_id,
+        fv.date_id,
+        COUNT(fre.ride_event_id) AS ride_count
+    FROM fact_visits fv
+    LEFT JOIN fact_ride_events fre
+        ON fv.visit_id = fre.visit_id
+    GROUP BY fv.visit_id, fv.date_id
+) sub
+JOIN dim_date d
+    ON sub.date_id = d.date_id
+GROUP BY d.day_name;
+
+-- Total ride count for each ride
+SELECT
+    da.attraction_name,
+    da.category,
+    COUNT(fre.ride_event_id) AS total_rides
+FROM fact_ride_events fre
+JOIN dim_attraction da
+    ON fre.attraction_id = da.attraction_id
+GROUP BY da.attraction_name, da.category
+ORDER BY total_rides DESC;
 
