@@ -136,7 +136,35 @@ Track guests who increased spend — target for upsells or memberships.
 - Only revenue data available; costs and margins not included.
 
 ---
+## 📊 Project Expansion: Data Cleaning, Analysis & Insights
 
+- **Data Cleaning & Validation**
+  - Replaced zero spend values with `NULL` to improve aggregation accuracy  
+  - Built cross-table validation between `fact_visits` and `fact_purchases`  
+  - Flagged and quantified spend discrepancies at the guest level  
+
+- **Exploratory Data Analysis (EDA)**
+  - Analyzed **wait times vs. guest volume** to assess congestion impact  
+  - Measured **average rides per visit** to evaluate guest engagement  
+  - Identified **day-of-week ride patterns** and **top attractions by usage**  
+
+- **Advanced Analytics (CTEs & Window Functions)**
+  - Ranked **top revenue-generating items** using window functions  
+  - Calculated **average ride frequency per attraction (normalized by day)**  
+  - Analyzed **non-ticket spend by ticket type** to uncover behavioral differences  
+
+- **KPI Development**
+  - Built core metrics:
+    - Average spend per visit  
+    - Average wait time  
+    - Average rides per visit  
+  - Designed as a foundation for dashboards and forecasting  
+
+- **Key Takeaways**
+  - Higher guest volume does **not consistently drive longer wait times**  
+  - Guest behavior (rides + spend) varies meaningfully across segments  
+  - Results highlight opportunities for **operational optimization and targeted marketing**
+  
 ## 📁 Repo Navigation
 ```
 /data       → Source SQLite database
